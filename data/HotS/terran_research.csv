@@ -1,0 +1,31 @@
+name,mineral,gas,research time,dependency
+infantry weapons 1,100,100,160,engineering bay
+infantry weapons 2,175,175,190,engineering bay
+infantry weapons 3,250,250,220,engineering bay
+vehicle weapons 1,100,100,160,armory
+vehicle weapons 2,175,175,190,armory
+vehicle weapons 3,250,250,220,armory
+ship weapons 1,100,100,160,armory
+ship weapons 2,175,175,190,armory
+ship weapons 3,250,250,220,armory
+infantry armor 1,100,100,160,engineering bay
+infantry armor 2,175,175,190,engineering bay
+infantry armor 3,250,250,220,engineering bay
+vehicle and ship plating 1,100,100,160,armory
+vehicle and ship plating 2,175,175,190,armory
+vehicle and ship plating 3,250,250,220,armory
+nitro packs,50,50,100,factory tech lab
+hi-sec auto tracking,100,100,80,engineering bay
+banshee cloak,200,200,110,starport tech lab
+behemoth reactor,150,150,80,fusion core
+concussive shells,50,50,60,barracks tech lab
+caduceus reactor,100,100,80,starport tech lab
+ghost cloak,150,150,120,ghost academy
+corvid reactor,150,150,110,starport tech lab
+stimpack,100,100,170,barracks tech lab
+moebius reactor,100,100,80,ghost academy
+weapon refit,150,150,60,fusion core
+drilling claw,150,150,110,factory tech lab
+transformation servos,150,150,110,factory tech lab
+building armor,150,150,140,engineering bay
+combat shield,100,100,110,barracks tech lab

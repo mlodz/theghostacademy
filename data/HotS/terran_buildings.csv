@@ -1,0 +1,18 @@
+name,minerals,gas,build time,dependency
+command center,400,0,100,
+orbital command,150,0,35,command center
+planetary fortress,150,150,50,command center
+supply depot,100,0,30,
+refinery,75,0,30,
+barracks,150,0,65,supply depot
+engineering bay,125,0,35,command center
+bunker,100,0,40,barracks
+missile turret,100,0,25,engineering bay
+sensor tower,125,100,25,engineering bay
+factory,150,100,60,barracks
+ghost academy,150,50,40,barracks
+armory,150,100,65,engineering bay
+starport,150,100,50,factory
+fusion core,150,150,65,starport
+tech lab,50,25,25,barracks
+reactor,50,50,50,barracks
