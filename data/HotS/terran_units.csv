@@ -1,17 +1,17 @@
-unit,supply,minerals,gas,build time,dependency,dependency2
-scv,1,50,0,17,command center,
-mule,0,0,0,0,command center,orbital command
-marine,1,50,0,25,barracks,
-marauder,2,100,25,30,baracks tech lab,
-reaper,1,50,50,40,barracks,
-ghost,2,200,100,40,baracks tech lab,ghost academy
-hellion,2,100,0,30,factory,
-hellbat,2,100,0,30,factory,armory
-widow mine,2,75,25,40,factory,
-siege tank,3,150,125,45,factory,
-thor,6,300,200,60,factory tech lab,armory
-viking,2,150,75,42,starport,
-medivac,2,100,100,42,starport,
-banshee,3,150,100,60,starport tech lab,
-raven,2,100,200,60,starport tech lab,
-battlecruiser,6,400,300,90,starport tech lab,fusion core
+name,supply,minerals,gas,build time,dependencies
+scv,1,50,0,17,command center
+mule,0,0,0,0,command center | orbital command
+marine,1,50,0,25,barracks
+marauder,2,100,25,30,baracks tech lab
+reaper,1,50,50,40,barracks
+ghost,2,200,100,40,baracks tech lab | ghost academy
+hellion,2,100,0,30,factory
+hellbat,2,100,0,30,factory | armory
+widow mine,2,75,25,40,factory
+siege tank,3,150,125,45,factory
+thor,6,300,200,60,factory tech lab | armory
+viking,2,150,75,42,starport
+medivac,2,100,100,42,starport
+banshee,3,150,100,60,starport tech lab
+raven,2,100,200,60,starport tech lab
+battlecruiser,6,400,300,90,starport tech lab | fusion core

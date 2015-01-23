@@ -1,7 +1,7 @@
-name,minerals,gas,build time,dependency
+name,minerals,gas,build time,dependencies
 command center,400,0,100,
-orbital command,150,0,35,command center
-planetary fortress,150,150,50,command center
+orbital command,150,0,35,command center | barracks
+planetary fortress,150,150,50,command center | engineering bay
 supply depot,100,0,30,
 refinery,75,0,30,
 barracks,150,0,65,supply depot

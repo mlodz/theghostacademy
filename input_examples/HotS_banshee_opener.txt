@@ -1,0 +1,19 @@
+# TvT TaeJa’s HotS Banshee Build
+# http://imbabuilds.com/hots-terran/hots-tvt/tvt-taejas-hots-banshee-build/
+
+constant scv
+10 – Supply Depot
+Barracks
+Refinery 3
+constant marines
+Orbital Command
+Supply Depot
+Factory
+Refinery 3
+Starport
+tech lab on factory
+reactor on barracks
+remove tech lab from factory
+add tech lab to starport
+banshee cloak
+banshee
