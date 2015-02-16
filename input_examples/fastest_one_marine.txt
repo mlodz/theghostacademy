@@ -1,0 +1,25 @@
+# Find the faster build to get one marine out
+
+
+# Unexpected result: By sacrificing building any workers, we can get a marine out at around 2:35
+# BUT, that's only around 30 seconds earlier than a standard build, so the sacrifice may not be worth it
+
+supply depot
+barracks
+marine
+
+
+# ================================================================
+# Time: 2:42    Minerals: 285    Gas: 0    Supply: 7 / 21
+# Buildings:
+#   1 Barracks
+#   1 Command center
+#   1 Supply depot
+# Units:
+#   6 Scv
+#   1 Marine
+# Research:
+#   None
+# ================================================================
+
+

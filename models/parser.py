@@ -7,7 +7,9 @@ def parse_build_order_file(filename, dependencies):
     """Takes a filename, and creates a list of commands.
     """
     lines = open(filename).readlines()
-    return [parse_line(line, dependencies) for line in lines]
+    commands =  [parse_line(line, dependencies) for line in lines]
+    # TODO: Some lines are not turned into commands (blank line, comments) so let's filter them out
+    return [c for c in commands if c is not None]
 
 
 def parse_line(text_line, dependencies):
@@ -19,6 +21,13 @@ def parse_line(text_line, dependencies):
     """
     raw_command = text_line.lower().strip()
     supply = None
+
+    if raw_command.startswith("#"):
+        # This line we are trying to parse is a comment
+        return None # TODO: create a CommentCommand class?
+    if raw_command.strip() == '':
+        # Ignore any lines that are just whitespace
+        return None
 
     # check for supply prefix
     found_supply = re.findall("^\d+", raw_command)
@@ -41,20 +50,31 @@ def parse_line(text_line, dependencies):
         elif raw_command.endswith('scout'):
             command.scout = True
         else:
-            raise Exception("Could not parse scv command `%s`" % text_line)
+            raise Exception("Could not parse scv command `%s`" % text_line.strip())
 
         return command
 
-    if raw_command in ("refinery", "refinery 1", "refinery 2", "refinery 3"):
+    if raw_command in ("refinery", "refinery 1", "refinery 2", "refinery 3", "refinery 0"):
         # REFINERY COMMAND
-        command = commands.RefineryCommand(supply, text_line)
-        command.scv_for_gas = 1 # TODO
+        default_scv_transfer = 3
+        scv_transfer = raw_command.strip('refinery ')
+        scv_transfer = int(scv_transfer) if scv_transfer else default_scv_transfer
+        command = commands.RefineryCommand(
+            supply, 
+            'refinery',
+            raw_command,
+            scv_transfer=scv_transfer,
+        )
         return command
 
     if raw_command in dependencies.all_item_names():
         # THIS IS A STANDARD COMMAND
-        command = commands.StandardCommand(supply, raw_command)
-        command.item_name = raw_command
+        item_name = raw_command
+        command = commands.StandardCommand(
+            supply,
+            item_name,
+            raw_command,
+        )
         return command
 
     # TODO
@@ -72,7 +92,7 @@ def parse_line(text_line, dependencies):
     #     # SWAP COMMAND
     #     pass
 
-    raise Exception("Could not parse command `%s`" % text_line)
+    raise Exception("Could not parse command `%s`" % text_line.strip())
 
 
 def parse_dependency_file(filename):
@@ -111,5 +131,18 @@ def parse_dependency_file(filename):
 
     return result
 
+
+def parse_building_ability_file(filename):
+    """Parse a data file containing building abilities (can build researhc, units, attachments)
+    """
+
+    with open(filename, 'rb') as csvfile:
+        lines = csv.reader(csvfile, delimiter=',', quotechar='"')
+        data = {}
+        for line in lines:
+            abilities = [a.lower().strip() for a in line[1:] if a]
+            building = line[0].lower().strip()
+            data[building] = abilities
+        return data
 
 

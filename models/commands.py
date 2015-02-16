@@ -33,16 +33,34 @@ import re
 
 class Command(object):
 
-    def __init__(self, supply, raw):
+    def __init__(self, supply, item_name, raw_text):
         self.supply = supply
-        self.raw = raw
+        self.item_name = item_name
+        self.raw = raw_text
 
     def __repr__(self):
-        return "<%s: supply: %s, raw: %s>" % (
+        return "<%s: %s>" % (
             self.__class__.__name__,
-            self.supply,
-            self.raw
+            self.item_name,
         )
+
+
+class StandardCommand(Command):
+    """Command to build a building, unit, attachment, or research."""
+    item_name = None
+
+    def run_name(self):
+        """Return the item name, but remove spaces and other non-letter characters."""
+        return re.sub("[^\w]", "", self.item_name)
+
+
+class RefineryCommand(StandardCommand):
+    """Scv will build a refinery, and when it's finished a certain
+    number of workers will begin collecting from it.
+    """
+    def __init__(self, supply, item_name, raw_text, scv_transfer=3):
+        super(RefineryCommand, self).__init__(supply, item_name, raw_text)
+        self.scv_transfer = scv_transfer
 
 
 class ScvCommand(Command):
@@ -52,23 +70,6 @@ class ScvCommand(Command):
     scout = False
     
 
-class RefineryCommand(Command):
-    """Scv will build a refinery, and when it's finished a certain
-    number of workers will begin collecting from it.
-    """
-    scv_for_gas = 1
-
-class StandardCommand(Command):
-    """Command to build a building, unit, attachment, or research."""
-    item_name = None
-    # is_unit = False
-    # is_building = False
-    # is_research = False
-    # is_attachment = False
-
-    def run_name(self):
-        """Return the item name, but remove spaces and other non-letter characters."""
-        return re.sub("[^\w]", "", self.item_name)
 
 
 class ConstantCommand(Command):
