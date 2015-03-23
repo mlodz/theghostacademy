@@ -2,7 +2,7 @@
 # http://imbabuilds.com/hots-terran/hots-tvt/tvt-reaper-fe/
 
 constant scv
-10 – Supply Depot
+Supply Depot
 Barracks
 Refinery 3
 Orbital Command

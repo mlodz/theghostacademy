@@ -1,4 +1,4 @@
-name,minerals,gas,research time,dependencies
+name,minerals,gas,build time,dependencies
 infantry weapons 1,100,100,160,engineering bay
 infantry weapons 2,175,175,190,engineering bay
 infantry weapons 3,250,250,220,engineering bay
@@ -22,7 +22,7 @@ concussive shells,50,50,60,barracks tech lab
 caduceus reactor,100,100,80,starport tech lab
 ghost cloak,150,150,120,ghost academy
 corvid reactor,150,150,110,starport tech lab
-stimpack,100,100,170,barracks tech lab
+stimpack,100,100,170,tech lab on barracks
 moebius reactor,100,100,80,ghost academy
 weapon refit,150,150,60,fusion core
 drilling claw,150,150,110,factory tech lab

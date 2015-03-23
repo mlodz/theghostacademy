@@ -44,6 +44,34 @@ class Command(object):
             self.item_name,
         )
 
+    def is_attachment(self):
+        return False
+
+    def is_swap(self):
+        return False
+
+    def is_constant(self):
+        return False
+
+
+class SwapCommand(Command):
+    """Command to lift off a building and switch it with another, in order
+    to trade a reactor or tech lab.
+    """
+    def __init__(self, supply, item_name, raw_text, attachment_name, disconnect):
+        super(SwapCommand, self).__init__(supply, item_name, raw_text)
+        self.attachment_name = attachment_name
+        self.disconnect = disconnect
+        
+    def is_swap(self):
+        return True
+    
+    def __repr__(self):
+        return "<%s: %s>" % (
+            self.__class__.__name__,
+            self.__dict__
+        )
+
 
 class StandardCommand(Command):
     """Command to build a building, unit, attachment, or research."""
@@ -63,6 +91,24 @@ class RefineryCommand(StandardCommand):
         self.scv_transfer = scv_transfer
 
 
+class AttachmentCommand(StandardCommand):
+    """
+    (tech lab | reactor) on (barracks | factory | starport)
+    (orbital command | planetary fortress) on command center
+
+    """
+    def __init__(self, supply, item_name, raw_text, attached_to=None):
+        super(AttachmentCommand, self).__init__(supply, item_name, raw_text)
+        self.item_name = item_name
+        self.attached_to = attached_to
+
+    def is_attachment(self):
+        return True
+
+    def __repr__(self):
+        return "<AttachmentCommand: %s on %s>" % (self.item_name, self.attached_to)
+
+
 class ScvCommand(Command):
     """Command for an scv to do something."""
     collect_minerals = False
@@ -75,7 +121,11 @@ class ScvCommand(Command):
 class ConstantCommand(Command):
     """Command to build this unit indefinitely (or to stop)."""
 
-class SwapCommand(Command):
-    """Command to lift off a building and switch it with another, in order
-    to trade a reactor or tech lab.
-    """
+    def __init__(self, supply, item_name, raw_text, begin=True):
+        super(ConstantCommand, self).__init__(supply, item_name, raw_text)
+        self.begin = begin
+        if self.begin:
+            self.standard_command = StandardCommand(supply, item_name, raw_text)
+
+    def is_constant(self):
+        return True

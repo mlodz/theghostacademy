@@ -3,16 +3,19 @@ import re
 
 import commands
 
-def parse_build_order_file(filename, dependencies):
+
+def parse_build_order_file(filename, facts):
     """Takes a filename, and creates a list of commands.
     """
     lines = open(filename).readlines()
-    commands =  [parse_line(line, dependencies) for line in lines]
+    commands =  [parse_line(line, facts) for line in lines]
     # TODO: Some lines are not turned into commands (blank line, comments) so let's filter them out
     return [c for c in commands if c is not None]
 
 
-def parse_line(text_line, dependencies):
+
+
+def parse_line(text_line, facts):
     """Take a raw piece of text, and return a command.
 
     "10 - supply depot"
@@ -39,6 +42,34 @@ def parse_line(text_line, dependencies):
         # Remove an optional dash
         raw_command.strip("-").strip()
 
+
+    # TODO: should this be in a data file?
+    ATTACHMENT_LINES = [
+        "tech lab on barracks",
+        "tech lab on factory",
+        "tech lab on starport",
+        "reactor on barracks",
+        "reactor on factory",
+        "reactor on starport",
+        "planetary fortress",
+        "orbital command",
+    ]
+    if raw_command in ATTACHMENT_LINES:
+        pieces = raw_command.split(" on ")
+        if len(pieces) == 2:
+            attachment, building = pieces
+        elif len(pieces) == 1:
+            attachment = pieces[0]
+            building = "command center"
+        else:
+            raise Exception("Could not parse scv command `%s`" % raw_command)
+        return commands.AttachmentCommand(
+            supply,
+            attachment,
+            raw_command,
+            attached_to=building,
+        )
+            
 
     if raw_command in ("scv to minerals", "scv to gas", "scv to scout"):
         # SCV COMMAND
@@ -67,7 +98,7 @@ def parse_line(text_line, dependencies):
         )
         return command
 
-    if raw_command in dependencies.all_item_names():
+    if raw_command in facts.all_item_names():
         # THIS IS A STANDARD COMMAND
         item_name = raw_command
         command = commands.StandardCommand(
@@ -78,9 +109,69 @@ def parse_line(text_line, dependencies):
         return command
 
     # TODO
-    # if raw_command.startswith(("constant", "stop constant")):
-    #     # CONSTANT COMMAND
-    #     pass
+    
+    """
+    Constant Commands are like:
+        constant scvs
+        stop constant scvs
+    """
+
+    if raw_command.startswith("constant"):
+        unit_name = raw_command[8:].strip()
+        all_names = facts.unit_names()
+        print "unit name:", unit_name, all_names
+        if unit_name in all_names:
+            return commands.ConstantCommand(
+                supply,
+                unit_name,
+                raw_command,
+                begin=True,
+            )
+        
+        # Try taking off an "s", may be plural
+        unit_name = unit_name.rstrip("s")
+        if unit_name in all_names:
+            return commands.ConstantCommand(
+                supply,
+                unit_name,
+                raw_command,
+                begin=True,
+            )
+
+
+    # TODO: implement "stop constant scv" command
+    #elif raw_command.startswith("stop constant"):
+        
+
+    """
+
+    Swap Commands are like:
+        remove barracks from tech lab
+        move barracks onto tech lab
+
+    """
+    buildings = ['barracks', 'factory', 'starport']
+    attachments = ['tech lab', 'reactor']
+    swap_commands = \
+        ["remove %s from %s" % (b, a) for b in buildings for a in attachments] + \
+        ["move %s onto %s" % (b, a) for b in buildings for a in attachments]
+    
+    if raw_command in swap_commands:
+        # Ugh, special case because 'tech lab' is two words
+        if "tech lab" in raw_command:
+            action, building = raw_command.split()[0:2]
+            attachment = "tech lab"
+        else:
+            action, building, word, attachment = raw_command.split()
+            
+        return commands.SwapCommand(
+            supply,
+            building,
+            raw_command,
+            attachment_name=attachment,
+            disconnect=bool(action == 'remove')
+        )
+
 
     # TODO
     # pieces = raw_command.split()

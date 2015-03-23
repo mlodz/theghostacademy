@@ -2,7 +2,8 @@
 # http://imbabuilds.com/hots-terran/hots-tvt/tvt-taejas-hots-banshee-build/
 
 constant scv
-10 – Supply Depot
+#10 – Supply Depot
+supply depot
 Barracks
 Refinery 3
 constant marines
@@ -13,7 +14,7 @@ Refinery 3
 Starport
 tech lab on factory
 reactor on barracks
-remove tech lab from factory
-add tech lab to starport
-banshee cloak
+remove factory from tech lab
+move starport onto tech lab 
+#banshee cloak
 banshee

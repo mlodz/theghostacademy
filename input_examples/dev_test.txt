@@ -1,23 +1,11 @@
 scv
 scv
 scv
+scv
+scv
 supply depot
+scv
+scv
 barracks
-refinery 2
-refinery 1
-marine
-supply depot
-engineering bay
-marine
-factory
-starport
-armory
-ghost academy
-fusion core
-bunker
-missile turret
-supply depot
-# orbital command
-sensor tower
-marine
-marine
+scv
+refinery 3

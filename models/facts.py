@@ -16,6 +16,12 @@ class Facts(object):
     def is_building(self, item_name):
         return item_name in self.buildings.keys()
 
+    def is_unit(self, item_name):
+        return item_name in self.units.keys()
+
+    def is_research(self, item_name):
+        return item_name in self.research.keys()
+
     def building_names(self):
         return self.buildings.keys()
 

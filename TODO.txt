@@ -1,0 +1,21 @@
+
+How do I Implement is_attachment() ? Data file? Inheritance? Only on command?
+command "tech lab" should not be a StandardCommand
+
+when implement "constant" commands, also need to implement "at supply" commands
+
+
+implement "constant scv" command
+implement "swap attachment" commands
+
+
+having trouble ending game if "constant" item is in progress
+Can't build "reactor" when constant marines. Do constant last?
+
+implement RESEARCH
+
+
+
+research file:
+  change "barracks tech lab" to "tech lab on barracks", and the rest
+  research has prereq of other research
